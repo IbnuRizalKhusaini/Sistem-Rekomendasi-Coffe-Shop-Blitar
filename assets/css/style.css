@@ -77,7 +77,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
   margin-left: 4px; }
 
 .bg-primary {
-  background-color: #6777ef !important; }
+  background-color: #7D5C3B !important; }
 
 .bg-secondary {
   background-color: #cdd3d8 !important; }
@@ -1056,8 +1056,8 @@ table tr:hover .table-links {
   margin: 0 3px; }
 
 .page-item.active .page-link {
-  background-color: #6777ef;
-  border-color: #6777ef; }
+  background-color: #7D5C3B;
+  border-color: #7D5C3B; }
 
 .page-item.disabled .page-link {
   border-color: transparent;

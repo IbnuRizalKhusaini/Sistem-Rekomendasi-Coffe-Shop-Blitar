@@ -28,6 +28,9 @@ $role = getUserRole($connection);
           <ul class="dropdown-menu">
           <li><a class="nav-link" href="../penilaian/matriks.php">Input Nilai</a></li>
             <li><a class="nav-link" href="../penilaian/normalisasi_bobot.php">Normalisasi Bobot</a></li>
+            <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Matriks Ternormalisasi</a></li>
+            <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Matriks Ideal +/-</a></li>
+            <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Jarak Solusi Ideal +/-</a></li>
             <li><a class="nav-link" href="../penilaian/hasil_hitung.php">Hasil Hitung</a></li>
           </ul>
         </li>
