@@ -21,16 +21,16 @@ $role = getUserRole($connection);
       <li><a class="nav-link" href="../kriteria/index.php"><i class="fas fa-columns"></i> <span>Kriteria</span></a></li>
       <?php if ($role !== 1) : ?>
         <li><a class="nav-link" href="../bobot/index.php"><i class="fas fa-columns"></i> <span>Bobot Kriteria</span></a></li>
+        <li><a class="nav-link" href="../penilaian/matriks.php"><i class="fas fa-columns"></i><span>Input Nilai</span></a></li>
       <?php endif; ?>
       <?php if ($role !== 1) : ?>
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Penilaian</span></a>
           <ul class="dropdown-menu">
-          <li><a class="nav-link" href="../penilaian/matriks.php">Input Nilai</a></li>
             <li><a class="nav-link" href="../penilaian/normalisasi_bobot.php">Normalisasi Bobot</a></li>
             <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Matriks Ternormalisasi</a></li>
-            <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Matriks Ideal +/-</a></li>
-            <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Jarak Solusi Ideal +/-</a></li>
+            <li><a class="nav-link" href="../penilaian/matriks_ideal.php">Matriks Ideal +/-</a></li>
+            <li><a class="nav-link" href="../penilaian/jarak_solusi.php">Jarak Solusi Ideal +/-</a></li>
             <li><a class="nav-link" href="../penilaian/hasil_hitung.php">Hasil Hitung</a></li>
           </ul>
         </li>

@@ -34,7 +34,7 @@ ob_end_flush(); // Flush buffered content
 
 <section class="section">
   <div class="section-header d-flex justify-content-between">
-    <h1>Ranking</h1>
+    <h1>Ranking (Rekomendasi Coffee Shop)</h1>
     <!-- <a href="./create.php" class="btn btn-primary">Input Penilaian</a> -->
   </div>
   <div class="row">

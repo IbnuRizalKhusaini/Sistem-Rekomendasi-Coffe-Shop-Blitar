@@ -33,7 +33,7 @@ mysqli_data_seek($criteria, 0);
                                     <th>Kriteria</th>
                                     <th>Bobot</th>
                                     <th>Kategori</th>
-                                    <th>Normalisasi</th>
+                                    <th>Normalisasi Bobot</th>
                                 </tr>
                             </thead>
                             <tbody>
