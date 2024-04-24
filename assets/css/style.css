@@ -1303,9 +1303,9 @@ h6 .badge {
   color: #fff !important; }
 
 .btn-info, .btn-info.disabled {
-  box-shadow: 0 2px 6px #82d3f8;
-  background-color: #3abaf4;
-  border-color: #3abaf4;
+  box-shadow: 0 2px 6px #7D5C3B;
+  background-color: #7D5C3B;
+  border-color: #7D5C3B;
   color: #fff; }
   .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.disabled:hover, .btn-info.disabled:focus, .btn-info.disabled:active {
     background-color: #0da8ee !important; }

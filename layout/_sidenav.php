@@ -15,13 +15,13 @@ $role = getUserRole($connection);
     </div>
     <ul class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
-      <li><a class="nav-link" href="../dashboard/index.php"><i class="fas fa-fire"></i> <span>Home</span></a></li>
+      <li><a class="nav-link" href="../dashboard/index.php"><i class="fas fa-home"></i> <span>Home</span></a></li>
       <li class="menu-header">Main Feature</li>
-      <li><a class="nav-link" href="../alternatif/index.php"><i class="fas fa-columns"></i> <span>Alternatif</span></a></li>
-      <li><a class="nav-link" href="../kriteria/index.php"><i class="fas fa-columns"></i> <span>Kriteria</span></a></li>
+      <li><a class="nav-link" href="../alternatif/index.php"><i class="fas fa-lock"></i> <span>Alternatif</span></a></li>
+      <li><a class="nav-link" href="../kriteria/index.php"><i class="fas fa-lock"></i> <span>Kriteria</span></a></li>
       <?php if ($role !== 1) : ?>
-        <li><a class="nav-link" href="../bobot/index.php"><i class="fas fa-columns"></i> <span>Bobot Kriteria</span></a></li>
-        <li><a class="nav-link" href="../penilaian/matriks.php"><i class="fas fa-columns"></i><span>Input Nilai</span></a></li>
+        <li><a class="nav-link" href="../bobot/index.php"><i class="fas fa-pencil"></i> <span>Bobot Kriteria</span></a></li>
+        <li><a class="nav-link" href="../penilaian/matriks.php"><i class="fas fa-pencil"></i><span>Input Nilai</span></a></li>
       <?php endif; ?>
       <?php if ($role !== 1) : ?>
         <li class="dropdown">
