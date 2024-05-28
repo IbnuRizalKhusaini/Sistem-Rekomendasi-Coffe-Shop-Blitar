@@ -75,7 +75,7 @@ if (isset($_POST['proses'])) {
                         <input type="text" class="form-control" value="<?= $criteria['name'] ?>" disabled>
                       </div>
                       <div class="col-sm-6 mb-2">
-                        <input type="number" class="form-control" name="weights[<?= $criteria['id'] ?>]" required>
+                        <input type="number" class="form-control" name="weights[<?= $criteria['id'] ?>]" required max="5" min="1">
                       </div>
                     </div>
                   <?php endwhile; ?>

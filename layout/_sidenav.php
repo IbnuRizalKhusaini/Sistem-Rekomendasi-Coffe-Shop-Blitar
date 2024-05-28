@@ -27,11 +27,11 @@ $role = getUserRole($connection);
         <li class="dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Penilaian</span></a>
           <ul class="dropdown-menu">
-            <li><a class="nav-link" href="../penilaian/normalisasi_bobot.php">Normalisasi Bobot</a></li>
+            <!--<li><a class="nav-link" href="../penilaian/normalisasi_bobot.php">Normalisasi Bobot</a></li>
             <li><a class="nav-link" href="../penilaian/matriks_normalisasi.php">Matriks Ternormalisasi</a></li>
             <li><a class="nav-link" href="../penilaian/matriks_ideal.php">Matriks Ideal +/-</a></li>
-            <li><a class="nav-link" href="../penilaian/jarak_solusi.php">Jarak Solusi Ideal +/-</a></li>
-            <li><a class="nav-link" href="../penilaian/hasil_hitung.php">Hasil Hitung</a></li>
+            <li><a class="nav-link" href="../penilaian/jarak_solusi.php">Jarak Solusi Ideal +/-</a></li>-->
+            <li><a class="nav-link" href="../penilaian/hasil_hitung.php">Hasil Rekomendasi</a></li>
           </ul>
         </li>
       <?php endif; ?>

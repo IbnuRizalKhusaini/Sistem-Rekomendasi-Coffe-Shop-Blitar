@@ -29,7 +29,7 @@ $alternative_values = mysqli_fetch_all($alternative_values_query, MYSQLI_ASSOC);
                                     <?php foreach ($criterias as $kriteria) : ?>
                                         <th><?= $kriteria['kode'] ?></th>
                                     <?php endforeach; ?>
-                                    <!-- <th style="width: 150">Aksi</th> -->
+                                    <th style="width: 150">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,7 +54,11 @@ $alternative_values = mysqli_fetch_all($alternative_values_query, MYSQLI_ASSOC);
                                                 ?>
                                             </td> 
                                         <?php endforeach; ?>
-                                        
+                                        <td>
+                                            <a class="btn btn-sm btn-info" href="edit_matriks.php?id=<?= $alternatif['id']?>">
+                                                <i class="fas fa-edit fa-fw"></i>
+                                        </a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -69,4 +73,35 @@ $alternative_values = mysqli_fetch_all($alternative_values_query, MYSQLI_ASSOC);
 
 <?php
 require_once '../layout/_bottom.php';
+?>
+
+<?php
+if (isset($_SESSION['info'])) :
+  if ($_SESSION['info']['status'] == 'success') {
+?>
+    <script>
+      iziToast.success({
+        title: 'Sukses',
+        message: <?= $_SESSION['info']['message'] ?>,
+        position: 'topCenter',
+        timeout: 5000
+      });
+    </script>
+  <?php
+  } else {
+  ?>
+    <script>
+      iziToast.error({
+        title: 'Gagal',
+        message: <?= $_SESSION['info']['message'] ?>,
+        timeout: 5000,
+        position: 'topCenter'
+      });
+    </script>
+<?php
+  }
+
+  unset($_SESSION['info']);
+  $_SESSION['info'] = null;
+endif;
 ?>

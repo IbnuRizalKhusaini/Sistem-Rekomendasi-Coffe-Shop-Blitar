@@ -12,11 +12,11 @@ if ($result) {
     'status' => 'success',
     'message' => 'Berhasil menghapus data'
   ];
-  header('Location: data.php');
+  header('Location: ./matriks.php');
 } else {
   $_SESSION['info'] = [
     'status' => 'failed',
     'message' => mysqli_error($connection)
   ];
-  header('Location: matriks.php');
+  header('Location: ./matriks.php');
 }

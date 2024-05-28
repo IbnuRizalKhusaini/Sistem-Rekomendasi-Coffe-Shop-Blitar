@@ -18,7 +18,7 @@ $total_criterias = mysqli_fetch_array($criterias)[0];
   </div><br>
   <div class="column">
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+      <!--<div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
           <div class="card-icon bg-primary">
             <i class="far fa-solid fa-shop"></i>
@@ -47,11 +47,13 @@ $total_criterias = mysqli_fetch_array($criterias)[0];
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
       <div class="card card-statistic-1">
         <div class="col-12">
           <div class="panel-body">
-            <p class="text-justify">Sistem Rekomendasi adalah sistem yang dirancang untuk memprediksi suatu item yang sesuai dengan minat user, yang mana item tersebut akan direkomendasikan pada user. Sistem rekomendasi ini dibuat dengan tujuan mempermudah user untuk menyeleksi kafe atau coffee shop dengan perhitungan yang dibuat sedemikian rupa menggunakan kombinasi metode SMART dan TOPSIS. Semoga dengan adanya sistem rekomendasi ini akan mempermudah anda untuk memilih coffee shop yang terbaik sesuai dengan preferensi kalian masing-masing.</p>
+            <br>
+            <img src="../assets/img/bagan.png" width="100%" height="50%" alt="">
+            <p class="text-justify"><br>Sistem Rekomendasi adalah sistem yang dirancang untuk memprediksi suatu item yang sesuai dengan minat user, yang mana item tersebut akan direkomendasikan pada user. Sistem rekomendasi ini dibuat dengan tujuan mempermudah user untuk menyeleksi kafe atau coffee shop dengan perhitungan yang dibuat sedemikian rupa menggunakan kombinasi metode SMART dan TOPSIS. Semoga dengan adanya sistem rekomendasi ini akan mempermudah anda untuk memilih coffee shop yang terbaik sesuai dengan preferensi kalian masing-masing.</p>
             <p>Langkah penggunaan sistem rekomendasi coffee shop :</p>
             <ul class="text-justify">
               <li>Bobot kriteria adalah skor yang diberikan pada tiap kriteria keputusan, sehingga dapat menggambarkan tinggi atau rendahnya kepentingan terhadap kriteria tersebut dalam langkah pengambilan keputusan.</li>
