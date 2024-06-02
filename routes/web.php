@@ -105,4 +105,5 @@ Route::prefix('user')->middleware('role:user')->group(function () {
 
     Route::get('/check-rankings', [HomeController::class, 'checkRankings'])->name('check.rankings');
 
+    Route::get('/result-rank', [ResultController::class, 'tampil'])->name('user.result.tampil');
 });

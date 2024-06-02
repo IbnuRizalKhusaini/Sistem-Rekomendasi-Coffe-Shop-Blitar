@@ -36,7 +36,7 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="location" class="form-label">Deskripsi</label>
+                        <label for="location" class="form-label">Link Lokasi</label>
                         <input type="text" name="location" id="location" class="form-control"
                             placeholder="Masukkan Link Lokasi" value="{{ old('location') }}">
                         @error('location')

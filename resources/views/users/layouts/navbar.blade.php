@@ -19,7 +19,7 @@
                                 <li><a href="#contact">Contact</a></li>
                                 <li></li>
                                 <li></li>
-                                <li><a href="../sirecoshop/index.php"><b>Rekomendasi Kafe</b></a></li>
+                                <li><a href="{{route ('check.rankings')}}"><b>Rekomendasi Kafe</b></a></li>
                                 <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Akun

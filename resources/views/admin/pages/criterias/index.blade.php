@@ -17,6 +17,10 @@
             <div class="card-body">
               <h5 class="card-title">Data Kriteria cok</h5>
               <p>iki kriteria</a>.</p>
+              <div class="col-auto">
+                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addKriteriaModal">Input Data </a>
+                                </div>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
@@ -36,7 +40,7 @@
                       <td>{{ $criteria->description }}</td>
                       <td>
                         <!-- Edit Button -->
-                        <a href="" class="btn btn-primary btn-sm">
+                        <a href="{{ route('admin.criterias.edit', $criteria->id) }}" class="btn btn-primary btn-sm">
                           Edit
                         </a>
                         
@@ -61,7 +65,7 @@
       </div>
 </section>
 </main>
-
+@include('admin.pages.criterias.modal.addkriteria')
 @include('admin.layouts.footer')
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -13,7 +13,7 @@ class CreateWeightTable extends Migration
      */
     public function up()
     {
-        Schema::create('weight', function (Blueprint $table) {
+        Schema::create('weight_values', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('criteria_id');
@@ -32,6 +32,6 @@ class CreateWeightTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('weight');
+        Schema::dropIfExists('weight_values');
     }
 }

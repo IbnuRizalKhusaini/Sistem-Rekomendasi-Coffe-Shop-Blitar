@@ -16,7 +16,7 @@
                     Keterangan :
                     <br> 5 = Sangat Baik <br> 4 = Baik <br> 3 = Cukup <br> 2 = Kurang <br> 1 = Sangat Kurang
                 </p>
-                <form action="{{ route('admin.alternative-values.store') }}" method="POST">
+                <form action="{{ route('user.alternative-values.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="criteria" class="form-label">Kriteria</label>

@@ -32,7 +32,7 @@ class AuthController extends Controller
             if ($user->role == 'admin') {
                 return redirect()->route('admin.dashboard.index');
             } elseif ($user->role == 'user') {
-                return redirect()->route('users.home.index');
+                return redirect()->route('user.home.index');
             }
         } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');
@@ -79,6 +79,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('users.home.index');
+        return redirect()->route('user.home.index');
     }
 }

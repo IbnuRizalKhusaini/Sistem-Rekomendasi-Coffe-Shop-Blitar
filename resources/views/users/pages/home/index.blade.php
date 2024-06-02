@@ -8,6 +8,45 @@
     @include('users.layouts.navbar')
     <!-- header ends  -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body"></div>
+                <div class="modal-body"></div>
+                <div class="modal-body text-center">
+                    <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
+                        data-aos="zoom-out" data-aos-delay="100">
+                    <p>Apakah anda sudah pernah pergi ke pantai yang ada di Malang ?</p>
+                    <a href="{{ route('user.weight.index') }}" class="btn btn-primary">Ya Pernah</a>
+                    <button type="button" id="belumPernahBtn" class="btn btn-danger" data-dismiss="modal">Belum
+                        Pernah</button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body"></div>
+                <div class="modal-body"></div>
+                <div class="modal-body text-center">
+                    <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
+                        data-aos="zoom-out" data-aos-delay="100">
+                    <p>Ingin melihat detail pantai terlebih dahulu ?</p>
+                    <a href="#portfolio" id="yaBtn" class="btn btn-primary">Ya</a>
+                    <a href="{{ route('user.home.index') }}" class="btn btn-primary">Tidak</a>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="viewport">
         <div id="js-scroll-content">
             <section class="main-banner" id="home">
@@ -151,226 +190,58 @@
                                 </div>
                             </div>
                             <div class="row">
+                                @foreach ($alternatives as $alternative)
                                 <div class="col-lg-4">
                                     <div class="blog-box">
                                         <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/de-classe.jpeg);"></div>
+                                            style="background-image: url({{ asset('storage/' . $alternative->image) }});"></div>
                                         <div class="blog-text">
-                                            <p class="blog-date">Jl. S. Supriadi No.56, Bendogerit, Kec. Sananwetan</p>
-                                            <a href="#" class="h4-title">De Classe Gelato and Cofee</a>
-                                            <p>Tempat nongkrong yang menyediakan gelato beraneka rasa, kopi berkualitas, pizza dan waffle Belgia. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
+                                            <!-- <p class="blog-date">Jl. S. Supriadi No.56, Bendogerit, Kec. Sananwetan</p> -->
+                                            <a href="#" class="h4-title">{{$alternative->alternative_name}}</a>
+                                            <p>{{$alternative->description}}</p>
+                                            <a href="{{$alternative->location}}" class="sec-btn">Location</a>
+                                            <a href="{{route('user.alternative-values.edit', ['alternative_id' => $alternative -> id])}}" class="sec-btn">Rating</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/peskop.webp);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Kalibrantas No.26-28, Kauman, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Pesen Kopi</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <section class="about-sec section" id="about">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="sec-title text-center mb-5">
+                                            <p class="sec-sub-title mb-3">About Us</p>
+                                            <h2 class="h2-title">Apa itu <span>Sistem Rekomendasi?</span></h2>
+                                            <div class="sec-title-shape mb-4">
+                                                <img src="assets/images/title-shape.svg" alt="">
+                                            </div>
+                                            <p>Setelah melihat-lihat artikel diatas, ada banyak sekali kedai kopi yang ada di Kota Blitar. 
+                                                Keberagaman tersebut justru dapat membuat konsumen kesulitan memilih kedai kopi yang sesuai dengan preferensi dan kebutuhan mereka. 
+                                                Setiap orang memiliki pandangan yang berbeda terhadap coffee shop, mengingat adanya variasi menu kopi, harga, pelayanan, suasana, fasilitas, dan lain sebagainya yang diberikan. 
+                                                Nah, disini sistem rekomendasi menjadi solusi efektif untuk membantu konsumen menemukan kafe yang sesuai dengan preferensi mereka. Dengan demikian, konsumen dapat lebih mudah menemukan kafe yang memenuhi harapan mereka. 
+                                                <br><br><b>*Jika kalian bingung dalam menggunakan sistem rekomendasi ini, silahkan tonton video panduan dibawah*</b></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/sweet-pea.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Veteran No.14, Kepanjen Kidul, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Sweet Pea Café</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/koloniale.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Tanjung No.54, Sukorejo, Kec. Sukorejo</p>
-                                            <a href="#" class="h4-title">New De Koloniale, Resto and Coffee</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/kuning.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. S. Supriadi No.16, Bendogerit, Kec. Sananwetan</p>
-                                            <a href="#" class="h4-title">Kuning Kitchen and Café</a>
-                                            <p>Tempat nongkrong modern dan keren bernuansa industri yang menyajikan nasi dan mi, serta kopi, pastri, dan kue. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/laki.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Anjasmoro No.17, Kepanjen Lor, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Lak-i Coffee & Famous Pizza</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/havana.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Ahmad Yani, Sananwetan, Kec. Sananwetan</p>
-                                            <a href="#" class="h4-title">HavanaKopi</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/grands.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Cakraningrat No.11, Sentul, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Grands Coffee</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/point.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Semeru, Kel. Kauman, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Point Cafe Semeru</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/tibal.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Sultan Agung No.94, Sananwetan, Kec. Sananwetan</p>
-                                            <a href="#" class="h4-title">Tibal Coffee</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/koneksi.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Tentara Genie Pelajar (TGP) No.25, Kepanjen Kidul, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Koneksi Kopi</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/kodi.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Cokroaminoto No.8, Kepanjen Lor, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Kodi Kopi</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/soe.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Ahmad Yani No.36, Sananwetan, Kec. Sananwetan</p>
-                                            <a href="#" class="h4-title">Kopi Soe Blitar</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/keshini.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Cemara No.199, Karangsari, Kec. Sukorejo</p>
-                                            <a href="#" class="h4-title">Keshini Restaurant Cafe Blitar</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="blog-box">
-                                        <div class="blog-img back-img"
-                                            style="background-image: url(assets/images/blog/nata.jpeg);"></div>
-                                        <div class="blog-text">
-                                            <p class="blog-date">Jl. Veteran No.129, Kepanjen Kidul, Kec. Kepanjenkidul</p>
-                                            <a href="#" class="h4-title">Nata Coffee and Eatery</a>
-                                            <p>Restoran ini menjual berbagai macam jenis makanan/minuman seperti snacks jajanan dengan harga yang terjangkau. Menu yang disediakan pun bermacam-macam dan anda bisa mencoba nya untuk dinikmati dengan keluarga atau saudara anda.</p>
-                                            <a href="#" class="sec-btn">Read More</a>
+                                <div class="row">
+                                    <div class="col-lg-8 m-auto">
+                                        <div class="about-video">
+                                            <div class="about-video-img" style="background-image: url(assets/images/about.png);">
+                                            </div>
+                                            <div class="play-btn-wp">
+                                                <a href="assets/images/video.mp4" data-fancybox="video" class="play-btn">
+                                                    <i class="uil uil-play"></i>
+            
+                                                </a>
+                                                <span>Lihat Panduan Penggunaan Sistem Rekomendasi Ini</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="about-sec section" id="about">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="sec-title text-center mb-5">
-                                    <p class="sec-sub-title mb-3">About Us</p>
-                                    <h2 class="h2-title">Apa itu <span>Sistem Rekomendasi?</span></h2>
-                                    <div class="sec-title-shape mb-4">
-                                        <img src="assets/images/title-shape.svg" alt="">
-                                    </div>
-                                    <p>Setelah melihat-lihat artikel diatas, ada banyak sekali kedai kopi yang ada di Kota Blitar. 
-                                        Keberagaman tersebut justru dapat membuat konsumen kesulitan memilih kedai kopi yang sesuai dengan preferensi dan kebutuhan mereka. 
-                                        Setiap orang memiliki pandangan yang berbeda terhadap coffee shop, mengingat adanya variasi menu kopi, harga, pelayanan, suasana, fasilitas, dan lain sebagainya yang diberikan. 
-                                        Nah, disini sistem rekomendasi menjadi solusi efektif untuk membantu konsumen menemukan kafe yang sesuai dengan preferensi mereka. Dengan demikian, konsumen dapat lebih mudah menemukan kafe yang memenuhi harapan mereka. 
-                                        <br><br><b>*Jika kalian bingung dalam menggunakan sistem rekomendasi ini, silahkan tonton video panduan dibawah*</b></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8 m-auto">
-                                <div class="about-video">
-                                    <div class="about-video-img" style="background-image: url(assets/images/about.png);">
-                                    </div>
-                                    <div class="play-btn-wp">
-                                        <a href="assets/images/video.mp4" data-fancybox="video" class="play-btn">
-                                            <i class="uil uil-play"></i>
-    
-                                        </a>
-                                        <span>Lihat Panduan Penggunaan Sistem Rekomendasi Ini</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                        </section>
 
                 
 
@@ -387,6 +258,31 @@
 
 
     @include('users.layouts.script')
+
+    @if(request()->query('showModal') == 'true')
+    <script>
+        $(document).ready(function() {
+            $('#questionModal').modal('show');
+        });
+
+        document.getElementById('belumPernahBtn').addEventListener('click', function() {
+            $('#questionModal').modal('hide');
+            $('#questionModal').on('hidden.bs.modal', function() {
+                $('#detailModal').modal('show');
+                $(this).off('hidden.bs.modal');
+            });
+        });
+
+        document.getElementById('yaBtn').addEventListener('click', function() {
+            $('#detailModal').modal('hide');
+            $('#detailModal').on('hidden.bs.modal', function() {
+                window.location.href = "#portfolio";
+                $(this).off('hidden.bs.modal');
+            });
+        });
+    </script>
+@endif
+
 
 </body>
 
