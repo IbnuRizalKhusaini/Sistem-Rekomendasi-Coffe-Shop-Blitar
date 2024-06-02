@@ -15,8 +15,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Kriteria cok</h5>
-              <p>iki kriteria</a>.</p>
+              <h5 class="card-title">DATA KRITERIA</h5>
+              <p>Kata kriteria adalah kata benda yang berarti “standar penilaian atau kritik.” Kriteria adalah aturan atau tolok ukur yang digunakan untuk menilai sesuatu</a>.</p>
               <div class="col-auto">
                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#addKriteriaModal">Input Data </a>

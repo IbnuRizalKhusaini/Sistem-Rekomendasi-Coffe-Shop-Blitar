@@ -13,10 +13,10 @@
                         <button class="menu-toggle"><span></span><span></span></button>
                         <nav class="header-menu">
                             <ul class="menu food-nav-menu">
-                                <li><a href="#home">Home</a></li>
-                                <li><a href="#about">About</a></li>
-                                <li><a href="#blog">Coffe Shop</a></li>
-                                <li><a href="#contact">Contact</a></li>
+                                <li><a href="{{ route('user.home.index') }}">Home</a></li>
+                                <li><a href="{{ route('user.home.index') }}#about">About</a></li>
+                                <li><a href="{{ route('user.home.index') }}#blog">Coffe Shop</a></li>
+                                <li><a href="{{ route('user.home.index') }}#contact">Contact</a></li>
                                 <li></li>
                                 <li></li>
                                 <li><a href="{{route ('check.rankings')}}"><b>Rekomendasi Kafe</b></a></li>

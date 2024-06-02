@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -64,7 +63,7 @@ class AuthController extends Controller
         $data = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => $request->password, // Hashing otomatis dilakukan oleh model User
             'role' => 'user',
         ];
 
@@ -74,7 +73,6 @@ class AuthController extends Controller
         // Redirect ke halaman login dengan pesan sukses
         return redirect()->route('login')->with('success', 'Registrasi Berhasil');
     }
-
 
     public function logout()
     {

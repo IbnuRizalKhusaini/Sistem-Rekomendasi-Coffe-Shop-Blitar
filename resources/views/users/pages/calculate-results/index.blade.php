@@ -284,12 +284,60 @@
 <!DOCTYPE html>
 <html lang="en">
 
-@include('users.layouts.head')
+@extends('users.pages.input-matrix.assets.style')
 
 <body class="body-fixed">
-    <!-- start of header  -->
-    @include('users.layouts.navbar')
-    <!-- header ends  -->
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="{{asset ('logo-cafe.png')}}" width="36" height="36" alt="Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="main-navigation">
+                        <button class="menu-toggle"><span></span><span></span></button>
+                        <nav class="header-menu">
+                            <ul class="menu food-nav-menu">
+                                <li><a href="{{ route('user.home.index') }}">Home</a></li>
+                                <li><a href="{{ route('user.home.index') }}#about">About</a></li>
+                                <li><a href="{{ route('user.home.index') }}#blog">Coffe Shop</a></li>
+                                <li><a href="{{ route('user.home.index') }}#contact">Contact</a></li>
+                                <li></li>
+                                <li></li>
+                                <li><a href="{{route ('check.rankings')}}"><b>Rekomendasi Kafe</b></a></li>
+                                <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Akun
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @guest
+                                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('register-view') }}">Register</a></li>
+                                    @else
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Logout
+                                            </a>
+                                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endguest
+                                </ul>
+                            </li>
+                            </ul>
+                        </nav>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Modal -->
         @if ($rankedAlternatives->isNotEmpty())
@@ -302,7 +350,7 @@
                                 <div class="col-lg-12">
                                     <div class="sec-title text-center mb-5">
                                         <p class="sec-sub-title mb-3">Coffee Shop</p>
-                                        <h2 class="h2-title">Kafe Pilihan di Kota Blitar</span></h2>
+                                        <h2 class="h2-title">Hasil Rekomendasi Kafe Pilihan di Kota Blitar Berdasarkan Kriteria Anda</span></h2>
                                         <div class="sec-title-shape mb-4">
                                             <img src="assets/images/title-shape.svg" alt="">
                                         </div>

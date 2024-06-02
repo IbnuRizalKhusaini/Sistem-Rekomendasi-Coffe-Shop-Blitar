@@ -10,7 +10,7 @@
                                                 <img src="logo-cafe.png" width="50" height="50" alt="">
                                             </a>
                                         </div>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia, tenetur.
+                                        <p>Sistem Rekomendasi Coffee Shop Terbaik di Kota Blitar menggunakan metode SMART & TOPSIS.
                                         </p>
                                         <div class="social-icon">
                                             <ul>

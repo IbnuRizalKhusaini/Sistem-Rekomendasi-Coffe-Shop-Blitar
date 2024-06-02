@@ -15,8 +15,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Alternatif cok</h5>
-              <p>iki alternatif</a>.</p>
+              <h5 class="card-title">DATA ALTERNATIF (COFFEE SHOP)</h5>
+              <p>Coffee Shop/Kafe (Cafe) adalah tempat untuk bersantai dan berbincang-bincang dimana pengunjung dapat memesan minuman dan makanan.</a>.</p>
               <div class="col-auto">
                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#addAlternatifModal">Input Data </a>

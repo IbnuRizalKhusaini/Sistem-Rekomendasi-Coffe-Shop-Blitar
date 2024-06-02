@@ -15,8 +15,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Data Matriks cok</h5>
-              <p>iki Nilai Matriks</a>.</p>
+              <h5 class="card-title">DATA NILAI MATRIKS</h5>
+              <p>Nilai matriks disini merupakan nilai untuk setiap kriteria pada setiap alternatif</a>.</p>
               <div class="col-auto">
                                     <a href="#" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#addMatrikModal">Input/Edit Nilai Alternatif </a>

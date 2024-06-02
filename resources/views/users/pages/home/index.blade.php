@@ -18,7 +18,7 @@
                 <div class="modal-body text-center">
                     <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
                         data-aos="zoom-out" data-aos-delay="100">
-                    <p>Apakah anda sudah pernah pergi ke pantai yang ada di Malang ?</p>
+                    <p>Apakah anda sudah pernah pergi ke Coffee Shop yang ada di Kota Blitar ?</p>
                     <a href="{{ route('user.weight.index') }}" class="btn btn-primary">Ya Pernah</a>
                     <button type="button" id="belumPernahBtn" class="btn btn-danger" data-dismiss="modal">Belum
                         Pernah</button>
@@ -38,8 +38,8 @@
                 <div class="modal-body text-center">
                     <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
                         data-aos="zoom-out" data-aos-delay="100">
-                    <p>Ingin melihat detail pantai terlebih dahulu ?</p>
-                    <a href="#portfolio" id="yaBtn" class="btn btn-primary">Ya</a>
+                    <p>Ingin melihat beberapa detail Coffee Shop di Kota Blitar terlebih dahulu ?</p>
+                    <a href="#blog" id="yaBtn" class="btn btn-primary">Ya</a>
                     <a href="{{ route('user.home.index') }}" class="btn btn-primary">Tidak</a>
                 </div>
                 <div class="modal-body"></div>
@@ -228,7 +228,7 @@
                                 <div class="row">
                                     <div class="col-lg-8 m-auto">
                                         <div class="about-video">
-                                            <div class="about-video-img" style="background-image: url(assets/images/about.png);">
+                                            <div class="about-video-img" style="background-image: url(assets/images/about.jpeg);">
                                             </div>
                                             <div class="play-btn-wp">
                                                 <a href="assets/images/video.mp4" data-fancybox="video" class="play-btn">

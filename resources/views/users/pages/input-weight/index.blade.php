@@ -1,176 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>Impact Bootstrap Template - Index</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
-    <link href="{{ asset('impact/assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('impact/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="{{ asset('impact/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('impact/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('impact/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('impact/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('impact/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="{{ asset('impact/assets/css/main.css') }}" rel="stylesheet">
-</head>
-<style>
-    .img-fluid-custom {
-        border-radius: 10px;
-    }
-
-    .larger-image {
-        max-width: 100%;
-        width: 500px;
-    }
-
-    .transparent-text {
-        opacity: 0.7;
-    }
-
-    .card-header {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e9ecef;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .form-label {
-        font-weight: bold;
-    }
-
-    .btn-visit {
-        width: 100px;
-    }
-
-    .footer-info {
-        margin-bottom: 20px;
-    }
-
-    .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .footer-links ul li {
-        display: inline;
-        margin: 0 10px;
-    }
-
-    .footer-links ul li a {
-        text-decoration: none;
-        color: #000;
-        transition: color 0.3s;
-    }
-
-    .footer-links ul li a:hover {
-        color: #007bff;
-    }
-
-    @media (max-width: 767px) {
-
-        .card-header,
-        .card-body {
-            padding: 15px;
-        }
-
-        .btn-visit {
-            width: 100%;
-        }
-
-        .larger-image {
-            width: 100%;
-        }
-
-    }
-</style>
+@extends('users.pages.input-matrix.assets.style')
 
 <body>
-    <header id="header" class="header d-flex align-items-center">
-
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href="{{ route('user.home.index') }}" class="logo d-flex align-items-center">
-                <h1>SIREKOP<span></span></h1>
-            </a>
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a href="{{ route('user.home.index') }}">Beranda</a></li>
-                    <li><a href="{{ route('user.home.index') }}">Tentang</a></li>
-                    <li><a href="{{ route('user.home.index') }}">Detail</a></li>
-                    <li><a href="{{ route('user.home.index') }}">Kriteria</a></li>
-                    <li><a href="{{ route('user.weight.index') }}">Cari Rekomendasi</a></li>
-                    <li class="dropdown">
-                        <a href="#" data-bs-toggle="dropdown">
-                            <span>Akun</span>
-                            <i class="bi bi-chevron-down dropdown-indicator"></i>
+    <header class="site-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="header-logo">
+                        <a href="index.html">
+                            <img src="{{asset ('logo-cafe.png')}}" width="36" height="36" alt="Logo">
                         </a>
-                        <ul class="dropdown-menu">
-                            @guest
-                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                                <li><a class="dropdown-item" href="{{ route('register-view') }}">Register</a></li>
-                            @else
-                                <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a></li>
-                                <form id="logout-form" action="{{ route('logout') }}"
-                                    style="display: none;">
-                                    @csrf
-                                </form>
-                            @endguest
-                        </ul>
-                </ul>
-            </nav><!-- .navbar -->
-
-            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="main-navigation">
+                        <button class="menu-toggle"><span></span><span></span></button>
+                        <nav class="header-menu">
+                            <ul class="menu food-nav-menu">
+                                <li><a href="{{ route('user.home.index') }}">Home</a></li>
+                                <li><a href="{{ route('user.home.index') }}#about">About</a></li>
+                                <li><a href="{{ route('user.home.index') }}#blog">Coffe Shop</a></li>
+                                <li><a href="{{ route('user.home.index') }}#contact">Contact</a></li>
+                                <li></li>
+                                <li></li>
+                                <li><a href="{{route ('check.rankings')}}"><b>Rekomendasi Kafe</b></a></li>
+                                <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Akun
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @guest
+                                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('register-view') }}">Register</a></li>
+                                    @else
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                Logout
+                                            </a>
+                                        </li>
+                                        <form id="logout-form" action="{{ route('logout') }}" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endguest
+                                </ul>
+                            </li>
+                            </ul>
+                        </nav>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
-    </header><!-- End Header -->
+    </header>
     <main>
+        <br><br><br>
         <div class="container mt-4 py-5">
             <div class="row mb-4 justify-content-center">
                 <div class="col-md-8">
                     <div class="text-center mb-4">
                         <p class="font-weight-bold text-capitalize">
-                            Silahkan memasukkan nilai kriteria untuk menetukan rekomendasi Pantai terbaik
+                            Silahkan isi kolom kriteria tersebut sesuai keinginan/preferensi anda
                         </p>
                     </div>
-
-                    <div class="row justify-content-center ">
+    
+                    <div class="row justify-content-center">
                         <div class="col-md-7 text-center d-flex flex-column align-items-center">
-                        <img src="https://dbijapkm3o6fj.cloudfront.net/resources/35831,1004,1,6,4,0,600,450/-4601-/20231020204850/pantai-goa-cina.jpeg"
-                                class="img-fluid img-fluid-custom larger-image mb-3" alt="Gambar">
+                            <img src="{{asset('coffee.jpeg')}}" class="img-fluid img-fluid-custom larger-image mb-3" alt="Gambar">
                         </div>
                         <div class="col-md-5">
                             <form action="{{ route('user.weight.store') }}" method="POST">
                                 @csrf
                                 @foreach ($criterias as $criteria)
                                     <div class="mb-3">
-                                        <label for="value{{ $criteria->id }}"
-                                            class="form-label">{{ $criteria->criteria_name }}</label>
-                                        <input type="number" name="values[{{ $criteria->id }}]"
-                                            id="value{{ $criteria->id }}" class="form-control" min="1"
-                                            max="100" step="1" placeholder="Beri Nilai (1-100)" required>
+                                        <label for="value{{ $criteria->id }}" class="form-label"><b>{{ $criteria->criteria_name }}</b></label>
+                                        <div class="d-flex align-items-center">
+                                            @if($criteria->criteria_name === 'Harga')
+                                                <span class="me-2">Murah</span>
+                                            @else
+                                                <span class="me-2">Kurang</span>
+                                            @endif
+                                            <input type="range" name="values[{{ $criteria->id }}]" id="value{{ $criteria->id }}" class="form-range" min="1" max="100" step="1" oninput="this.nextElementSibling.value = this.value" required>
+                                            <output class="ms-2">50</output>
+                                            @if($criteria->criteria_name !== 'Harga')
+                                                <span class="ms-2">Baik</span>
+                                            @else
+                                                <span class="ms-2">Mahal</span>
+                                            @endif
+                                        </div>
                                         @error('values.' . $criteria->id)
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -178,7 +97,7 @@
                                         @enderror
                                     </div>
                                 @endforeach
-
+    
                                 <div class="d-flex justify-content-between">
                                     <button type="submit" class="btn btn-primary btn-visit">Hasil</button>
                                     {{-- <a href="{{ route('user.home.index') }}" class="btn btn-danger btn-visit">Kembali ke Home</a> --}}
@@ -186,73 +105,116 @@
                             </form>
                         </div>
                     </div>
-
+    
                 </div>
             </div>
         </div>
     </main>
+    
+    
 
     <!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-
-        <div class="container text-center">
-            <div class="row gy-2 justify-content-center">
-                <div class="col-lg-5 col-md-12 footer-info">
-                    <a href="{{ route('user.home.index') }}"
-                        class="logo d-flex align-items-center justify-content-center">
-                        <span>SI VIRO</span>
-                    </a>
-                    <p>SI VIRO adalah sistem informasi yang dirancang khusus untuk memberikan rekomendasi pantai terbaik
-                        di Kabupaten Malang.</p>
+    <!-- footer starts  -->
+    <footer class="site-footer" id="contact">
+        <div class="top-footer section">
+            <div class="sec-wp">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="footer-info">
+                                <div class="footer-logo">
+                                    <a href="index.html">
+                                        <img src="{{asset ('logo-cafe.png')}}" width="50" height="50" alt="">
+                                    </a>
+                                </div>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia, tenetur.
+                                </p>
+                                <div class="social-icon">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-github-alt"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="footer-flex-box">
+                                <!--<div class="footer-table-info">
+                                    <h3 class="h3-title">open hours</h3>
+                                    <ul>
+                                        <li><i class="uil uil-clock"></i> Mon-Thurs : 9am - 22pm</li>
+                                        <li><i class="uil uil-clock"></i> Fri-Sun : 11am - 22pm</li>
+                                    </ul>
+                                </div>
+                                <div class="footer-menu food-nav-menu">
+                                    <h3 class="h3-title">Links</h3>
+                                    <ul class="column-2">
+                                        <li>
+                                            <a href="#home" class="footer-active-menu">Home</a>
+                                        </li>
+                                        <li><a href="#about">About</a></li>
+                                        <li><a href="#menu">Menu</a></li>
+                                        <li><a href="#gallery">Gallery</a></li>
+                                        <li><a href="#blog">Blog</a></li>
+                                        <li><a href="#contact">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-menu">
+                                    <h3 class="h3-title">Company</h3>
+                                    <ul>
+                                        <li><a href="#">Terms & Conditions</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Cookie Policy</a></li>
+                                    </ul>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-7 col-12 footer-links">
-                    <ul class="d-flex justify-content-center">
-                        <li></li>
-                        <li><a href="{{ route('user.home.index') }}"><strong>Beranda</strong></a></li>
-                        <li><a href="{{ route('user.home.index') }}"><strong>Tentang</strong></a></li>
-                        <li><a href="{{ route('user.home.index') }}"><strong>Detail</strong></a></li>
-                        <li><a href="{{ route('user.home.index') }}"><strong>Kriteria</strong></a></li>
-                        <li><a href="{{ route('user.weight.index') }}"><strong>Cari Rekomandasi</strong></a></li>
-                    </ul>
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2024 <span class="name">Sirecoshop. </span>All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                <button class="scrolltop"><i class="uil uil-angle-up"></i></button>
             </div>
         </div>
-
-        <div class="container mt-4">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Impact</span></strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-            </div>
-        </div>
-
-    </footer><!-- End Footer -->
-    <!-- End Footer -->
+    </footer>
 
     <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+        class="bi bi-arrow-up-short"></i></a>
 
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('impact/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/aos/aos.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ asset('impact/assets/vendor/php-email-form/validate.js') }}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="{{ asset('impact/assets/js/main.js') }}"></script>
+    <!-- jquery  -->
+    @include('users.layouts.script')
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
