@@ -78,7 +78,7 @@
                                         <label for="value{{ $criteria->id }}" class="form-label"><b>{{ $criteria->criteria_name }}</b></label>
                                         <div class="d-flex align-items-center">
                                             @if($criteria->criteria_name === 'Harga')
-                                                <span class="me-2">Murah</span>
+                                                <span class="me-2">Mahal</span>
                                             @else
                                                 <span class="me-2">Kurang</span>
                                             @endif
@@ -87,7 +87,7 @@
                                             @if($criteria->criteria_name !== 'Harga')
                                                 <span class="ms-2">Baik</span>
                                             @else
-                                                <span class="ms-2">Mahal</span>
+                                                <span class="ms-2">Murah</span>
                                             @endif
                                         </div>
                                         @error('values.' . $criteria->id)
