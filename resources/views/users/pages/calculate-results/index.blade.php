@@ -1,16 +1,19 @@
 @php
+    use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Auth;
+    use App\Models\WeightValue;
+    use App\Models\Alternative;
+    use App\Models\Criteria;
+    use App\Models\Ranking;
+
     // Ambil semua entri weight_values dari database
-    $weightValues = \App\Models\WeightValue::all();
+    $weightValues = WeightValue::all();
 
     // Hitung total nilai weight
     $totalWeight = $weightValues->sum('weight');
-@endphp
-
-@php
-    use Illuminate\Support\Facades\DB;
 
     // Ambil semua nilai alternatif dari database
-    $alternatives = \App\Models\Alternative::all();
+    $alternatives = Alternative::all();
 
     // Buat array untuk menyimpan pembagi untuk setiap criteria_id
     $divisors = [];
@@ -24,253 +27,129 @@
     }
 @endphp
 
+@if ($totalWeight > 0)
+    @foreach ($weightValues as $weightValue)
+        <!-- Proses setiap weightValue -->
+    @endforeach
+@else
+    <!-- Jika total weight 0 -->
+@endif
+
+<!-- Menampilkan Normalized Matrix dan Weighted Normalized Values (Y) -->
 @php
-    use App\Models\Criteria;
+    $aPositifs = [];
+    $aNegatifs = [];
+    $weightedNormalizedValues = [];
+    $Vs = [];
 @endphp
 
-
-{{-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Normalized Weights</title>
-</head>
-<body> --}}
-     <!-- Menampilkan Normalized Weights -->
-    <!-- Menampilkan Normalized Weights -->
-    {{-- <h1>Normalized Weights</h1> --}}
-    @if ($totalWeight > 0)
-        {{-- <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User ID</th>
-                    <th>Criteria ID</th>
-                    <th>Weight</th>
-                    <th>Normalized Weight</th>
-                </tr>
-            </thead>
-            <tbody> --}}
-                @foreach ($weightValues as $weightValue)
-                    {{-- <tr>
-                        <td>{{ $weightValue->id }}</td>
-                        <td>{{ $weightValue->user_id }}</td>
-                        <td>{{ $weightValue->criteria_id }}</td>
-                        <td>{{ $weightValue->weight }}</td>
-                        <td>{{ $weightValue->weight / $totalWeight }}</td>
-                    </tr> --}}
-                @endforeach
-            {{-- </tbody>
-        </table> --}}
-    @else
-        {{-- <p>No weights found.</p> --}}
-    @endif
-
-    <!-- Menampilkan Normalized Matrix dan Weighted Normalized Values (Y) -->
-    {{-- <h1>Normalized Matrix and Weighted Normalized Values (Y)</h1> --}}
+@foreach($groupedData as $criteria_id => $alternatives)
     @php
-        $aPositifs = [];
-        $aNegatifs = [];
-        $weightedNormalizedValues = [];
-        $Vs = [];
+        $sumOfSquares = $alternatives->sum(function($item) {
+            return pow($item->value, 2);
+        });
+        $pembagi = sqrt($sumOfSquares);
+        $normalizedWeight = $weightValues->firstWhere('criteria_id', $criteria_id)->weight / $totalWeight;
+        $aPositif = null;
+        $aNegatif = null;
     @endphp
-    @foreach($groupedData as $criteria_id => $alternatives)
-        {{-- <h2>Criteria ID: {{ $criteria_id }}</h2> --}}
-        <!-- Hitung Pembagi (sqrt(sum(alternative_value^2))) -->
+
+    @foreach($alternatives as $alternative)
         @php
-            $sumOfSquares = $alternatives->sum(function($item) {
-                return pow($item->value, 2);
-            });
-            $pembagi = sqrt($sumOfSquares);
-            // Ambil nilai bobot yang sudah dinormalisasi untuk criteria_id
-            $normalizedWeight = $weightValues->firstWhere('criteria_id', $criteria_id)->weight / $totalWeight;
-            // Inisialisasi nilai aPositif dan aNegatif
-            $aPositif = null;
-            $aNegatif = null;
+            $normalizedValue = $alternative->value / $pembagi;
+            $weightedNormalizedValue = $normalizedValue * $normalizedWeight;
+            $weightedNormalizedValues[$alternative->alternative_id][$criteria_id] = $weightedNormalizedValue;
+
+            $criteria = $criterias->where('id', $criteria_id)->first();
+            if ($criteria->description == 'Benefit') {
+                if ($aPositif === null || $weightedNormalizedValue > $aPositif) {
+                    $aPositif = $weightedNormalizedValue;
+                }
+                if ($aNegatif === null || $weightedNormalizedValue < $aNegatif) {
+                    $aNegatif = $weightedNormalizedValue;
+                }
+            } elseif ($criteria->description == 'Cost') {
+                if ($aPositif === null || $weightedNormalizedValue < $aPositif) {
+                    $aPositif = $weightedNormalizedValue;
+                }
+                if ($aNegatif === null || $weightedNormalizedValue > $aNegatif) {
+                    $aNegatif = $weightedNormalizedValue;
+                }
+            }
         @endphp
-
-        {{-- <table border="1">
-            <tr>
-                <th>Alternative ID</th>
-                <th>Original Value</th>
-                <th>Normalized Value</th>
-                <th>Weighted Normalized Value (Y)</th>
-            </tr> --}}
-
-            @foreach($alternatives as $alternative)
-                @php
-                    // Hitung nilai yang sudah dinormalisasi
-                    $normalizedValue = $alternative->value / $pembagi;
-                    // Hitung nilai Y
-                    $weightedNormalizedValue = $normalizedValue * $normalizedWeight;
-                    // Simpan nilai weightedNormalizedValue
-                    $weightedNormalizedValues[$alternative->alternative_id][$criteria_id] = $weightedNormalizedValue;
-                    // Jika deskripsi adalah Benefit
-                    if ($criterias->where('id', $criteria_id)->first()->description == 'Benefit') {
-                        // Cari nilai maksimum untuk aPositif
-                        if ($aPositif === null || $weightedNormalizedValue > $aPositif) {
-                            $aPositif = $weightedNormalizedValue;
-                        }
-                        // Cari nilai minimum untuk aNegatif
-                        if ($aNegatif === null || $weightedNormalizedValue < $aNegatif) {
-                            $aNegatif = $weightedNormalizedValue;
-                        }
-                    }
-                    // Jika deskripsi adalah Cost
-                    elseif ($criterias->where('id', $criteria_id)->first()->description == 'Cost') {
-                        // Cari nilai minimum untuk aPositif
-                        if ($aPositif === null || $weightedNormalizedValue < $aPositif) {
-                            $aPositif = $weightedNormalizedValue;
-                        }
-                        // Cari nilai maksimum untuk aNegatif
-                        if ($aNegatif === null || $weightedNormalizedValue > $aNegatif) {
-                            $aNegatif = $weightedNormalizedValue;
-                        }
-                    }
-                @endphp
-
-                {{-- <tr>
-                    <td>{{ $alternative->alternative_id }}</td>
-                    <td>{{ $alternative->value }}</td>
-                    <td>{{ $normalizedValue }}</td>
-                    <td>{{ $weightedNormalizedValue }}</td>
-                </tr> --}}
-            @endforeach
-        {{-- </table> --}}
-        <!-- Menyimpan nilai aPositif dan aNegatif -->
-        @php
-            $aPositifs[$criteria_id] = $aPositif;
-            $aNegatifs[$criteria_id] = $aNegatif;
-        @endphp
-        <!-- Menampilkan nilai aPositif dan aNegatif -->
-        {{-- <p>aPositif for Criteria ID {{ $criteria_id }}: {{ $aPositif }}</p>
-        <p>aNegatif for Criteria ID {{ $criteria_id }}: {{ $aNegatif }}</p> --}}
     @endforeach
 
-    <!-- Menghitung dan Menampilkan Jarak dPositif dan dNegatif -->
-    {{-- <h1>Distance to aPositif (dPositif) and aNegatif (dNegatif)</h1> --}}
     @php
-        $distances = [];
+        $aPositifs[$criteria_id] = $aPositif;
+        $aNegatifs[$criteria_id] = $aNegatif;
     @endphp
-    {{-- <table border="1">
-        <thead>
-            <tr>
-                <th>Alternative ID</th>
-                <th>dPositif</th>
-                <th>dNegatif</th>
-                <th>V</th>
-            </tr>
-        </thead>
-        <tbody> --}}
-            @foreach($alternatives as $alternative)
-                @php
-                    $dPositif = sqrt(
-                        array_sum(array_map(function($criteria_id) use ($weightedNormalizedValues, $aPositifs, $alternative) {
-                            return pow($aPositifs[$criteria_id] - $weightedNormalizedValues[$alternative->alternative_id][$criteria_id], 2);
-                        }, array_keys($aPositifs)))
-                    );
-
-                    $dNegatif = sqrt(
-                        array_sum(array_map(function($criteria_id) use ($weightedNormalizedValues, $aNegatifs, $alternative) {
-                            return pow($aNegatifs[$criteria_id] - $weightedNormalizedValues[$alternative->alternative_id][$criteria_id], 2);
-                        }, array_keys($aNegatifs)))
-                    );
-
-                    // Menghitung nilai V
-                    $V = $dPositif + $dNegatif > 0 ? $dNegatif / ($dNegatif + $dPositif) : 0;
-
-                    // Menyimpan nilai V ke dalam array
-                    $Vs[$alternative->alternative_id] = $V;
-
-                    // Simpan jarak dan nilai V
-                    $distances[$alternative->alternative_id] = ['dPositif' => $dPositif, 'dNegatif' => $dNegatif, 'V' => $V];
-                @endphp
-                {{-- <tr>
-                    <td>{{ $alternative->alternative_id }}</td>
-                    <td>{{ $dPositif }}</td>
-                    <td>{{ $dNegatif }}</td>
-                    <td>{{ $V }}</td>
-                </tr> --}}
-            @endforeach
-
-            <!-- Menyimpan nilai V ke dalam database -->
-            @foreach($Vs as $alternative_id => $V)
-            @php
-                // Mencari atau membuat instance dari model Ranking berdasarkan alternative_id dan id_user
-                // Jika sudah ada, maka nilai result_cal akan diupdate, jika tidak, maka akan dibuat baru
-                \App\Models\Ranking::updateOrCreate(
-                    ['alternative_id' => $alternative_id, 'id_user' => Auth::id()],
-                    ['result_cal' => $V]
-                );
-            @endphp
-        @endforeach
-        
-
-<!-- Menampilkan Ranking -->
-{{-- <h1>Ranking</h1> --}}
-{{-- <table border="1"> --}}
-    {{-- <thead>
-        <tr>
-            <th>Alternative ID</th>
-            <th>Result (V)</th>
-            <th>Rank</th>
-        </tr>
-    </thead> --}}
-    {{-- <tbody> --}}
-        @php
-            use Illuminate\Support\Facades\Auth;
-            use App\Models\Ranking;
-
-            // Mengambil data V dan ranking yang sudah ada untuk user_id tertentu
-            $existingRankings = Ranking::where('id_user', Auth::id())->pluck('result_cal', 'alternative_id')->toArray();
-            
-            // Mengurutkan alternatif berdasarkan nilai V dari yang terbesar
-            arsort($Vs);
-            $rank = 1;
-        @endphp
-        @foreach($Vs as $alternative_id => $V)
-            @php
-                // Periksa apakah V sudah tersimpan dan apakah nilainya sama
-                $ranking = Ranking::where('id_user', Auth::id())->where('alternative_id', $alternative_id)->first();
-                if ($ranking) {
-                    // Update nilai V dan rank hanya jika ada perubahan
-                    if ($ranking->result_cal != $V || $ranking->result_rank != $rank) {
-                        $ranking->result_cal = $V;
-                        $ranking->result_rank = $rank;
-                        $ranking->save();
-                    }
-                } else {
-                    // Simpan nilai V dan rank ke database jika belum ada
-                    $ranking = new Ranking;
-                    $ranking->alternative_id = $alternative_id;
-                    $ranking->id_user = Auth::id();
-                    $ranking->result_cal = $V;
-                    $ranking->result_rank = $rank;
-                    $ranking->save();
-                }
-            @endphp
-            {{-- <tr>
-                <td>{{ $alternative_id }}</td>
-                <td>{{ $V }}</td>
-                <td>{{ $rank }}</td>
-            </tr> --}}
-            @php
-                $rank++;
-            @endphp
-        @endforeach
-    {{-- </tbody> --}}
-{{-- </table> --}}
-
-{{-- </body> --}}
-{{-- </html> --}}
+@endforeach
 
 @php
+    $distances = [];
+@endphp
 
-    use App\Models\Alternative;
+@foreach($alternatives as $alternative)
+    @php
+        $dPositif = sqrt(
+            array_sum(array_map(function($criteria_id) use ($weightedNormalizedValues, $aPositifs, $alternative) {
+                return pow($aPositifs[$criteria_id] - $weightedNormalizedValues[$alternative->alternative_id][$criteria_id], 2);
+            }, array_keys($aPositifs)))
+        );
 
-    // Mengambil data ranking untuk user yang sedang login
+        $dNegatif = sqrt(
+            array_sum(array_map(function($criteria_id) use ($weightedNormalizedValues, $aNegatifs, $alternative) {
+                return pow($aNegatifs[$criteria_id] - $weightedNormalizedValues[$alternative->alternative_id][$criteria_id], 2);
+            }, array_keys($aNegatifs)))
+        );
+
+        $V = $dPositif + $dNegatif > 0 ? $dNegatif / ($dNegatif + $dPositif) : 0;
+
+        $Vs[$alternative->alternative_id] = $V;
+        $distances[$alternative->alternative_id] = ['dPositif' => $dPositif, 'dNegatif' => $dNegatif, 'V' => $V];
+    @endphp
+@endforeach
+
+@foreach($Vs as $alternative_id => $V)
+    @php
+        Ranking::updateOrCreate(
+            ['alternative_id' => $alternative_id, 'id_user' => Auth::id()],
+            ['result_cal' => $V]
+        );
+    @endphp
+@endforeach
+
+@php
+    $existingRankings = Ranking::where('id_user', Auth::id())->pluck('result_cal', 'alternative_id')->toArray();
+
+    arsort($Vs);
+    $rank = 1;
+@endphp
+
+@foreach($Vs as $alternative_id => $V)
+    @php
+        $ranking = Ranking::where('id_user', Auth::id())->where('alternative_id', $alternative_id)->first();
+        if ($ranking) {
+            if ($ranking->result_cal != $V || $ranking->result_rank != $rank) {
+                $ranking->result_cal = $V;
+                $ranking->result_rank = $rank;
+                $ranking->save();
+            }
+        } else {
+            $ranking = new Ranking;
+            $ranking->alternative_id = $alternative_id;
+            $ranking->id_user = Auth::id();
+            $ranking->result_cal = $V;
+            $ranking->result_rank = $rank;
+            $ranking->save();
+        }
+        $rank++;
+    @endphp
+@endforeach
+
+@php
     $rankings = Ranking::where('id_user', Auth::id())->orderBy('result_rank')->get();
 
-    // Mengambil data alternatif berdasarkan ranking
     $rankedAlternatives = $rankings->map(function ($ranking) {
         return [
             'alternative' => Alternative::find($ranking->alternative_id),
@@ -279,6 +158,9 @@
         ];
     });
 @endphp
+
+
+
 
 
 <!DOCTYPE html>
@@ -357,6 +239,10 @@
                                     </div>
                                 </div>
                             </div>
+                            @php
+                                $rankedAlternatives = $rankedAlternatives->sortBy('result_rank');
+                            @endphp
+
                             <div class="row">
                                 @foreach ($rankedAlternatives as $rankedAlternative)
                                 <div class="col-lg-4">
@@ -368,7 +254,6 @@
                                             <a href="#" class="h4-title">{{$rankedAlternative['alternative']->alternative_name}}</a>
                                             <p>{{$rankedAlternative['alternative']->description}}</p>
                                             <a href="{{$rankedAlternative['alternative']->location}}" class="sec-btn">Location</a>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -384,7 +269,96 @@
             @endif
 
             <!-- footer starts  -->
-            @include('users.layouts.footer')
+    <footer class="site-footer" id="contact">
+        <div class="top-footer section">
+            <div class="sec-wp">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="footer-info">
+                                <div class="footer-logo">
+                                    <a href="index.html">
+                                        <img src="{{asset ('logo-cafe.png')}}" width="50" height="50" alt="">
+                                    </a>
+                                </div>
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia, tenetur.
+                                </p>
+                                <div class="social-icon">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-facebook-f"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-github-alt"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="uil uil-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="footer-flex-box">
+                                <!--<div class="footer-table-info">
+                                    <h3 class="h3-title">open hours</h3>
+                                    <ul>
+                                        <li><i class="uil uil-clock"></i> Mon-Thurs : 9am - 22pm</li>
+                                        <li><i class="uil uil-clock"></i> Fri-Sun : 11am - 22pm</li>
+                                    </ul>
+                                </div>
+                                <div class="footer-menu food-nav-menu">
+                                    <h3 class="h3-title">Links</h3>
+                                    <ul class="column-2">
+                                        <li>
+                                            <a href="#home" class="footer-active-menu">Home</a>
+                                        </li>
+                                        <li><a href="#about">About</a></li>
+                                        <li><a href="#menu">Menu</a></li>
+                                        <li><a href="#gallery">Gallery</a></li>
+                                        <li><a href="#blog">Blog</a></li>
+                                        <li><a href="#contact">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer-menu">
+                                    <h3 class="h3-title">Company</h3>
+                                    <ul>
+                                        <li><a href="#">Terms & Conditions</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Cookie Policy</a></li>
+                                    </ul>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2024 <span class="name">Sirecoshop. </span>All Rights Reserved.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button class="scrolltop"><i class="uil uil-angle-up"></i></button>
+            </div>
+        </div>
+    </footer>
 
 
 

@@ -11,7 +11,7 @@ class Ranking extends Model
 
     protected $fillable = [
         'alternative_id',
-        'user_id',
+        'id_user',
         'result_cal',
         'result_rank',
     ];

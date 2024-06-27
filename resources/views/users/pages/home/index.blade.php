@@ -8,44 +8,101 @@
     @include('users.layouts.navbar')
     <!-- header ends  -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body"></div>
-                <div class="modal-body"></div>
-                <div class="modal-body text-center">
-                    <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
-                        data-aos="zoom-out" data-aos-delay="100">
-                    <p>Apakah anda sudah pernah pergi ke Coffee Shop yang ada di Kota Blitar ?</p>
-                    <a href="{{ route('user.weight.index') }}" class="btn btn-primary">Ya Pernah</a>
-                    <button type="button" id="belumPernahBtn" class="btn btn-danger" data-dismiss="modal">Belum
-                        Pernah</button>
-                </div>
-                <div class="modal-body"></div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body"></div>
-                <div class="modal-body"></div>
-                <div class="modal-body text-center">
-                    <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt=""
-                        data-aos="zoom-out" data-aos-delay="100">
-                    <p>Ingin melihat beberapa detail Coffee Shop di Kota Blitar terlebih dahulu ?</p>
-                    <a href="#blog" id="yaBtn" class="btn btn-primary">Ya</a>
-                    <a href="{{ route('user.home.index') }}" class="btn btn-primary">Tidak</a>
-                </div>
-                <div class="modal-body"></div>
+    <!-- Modal 1 -->
+  <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="{{ asset('impact/assets/img/hero-img.svg') }}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+                <p>Apakah anda sudah pernah pergi ke Coffee Shop di Kota Blitar?</p>
+                <button type="button" id="PernahBtn" class="btn btn-primary">Pernah</button>
+                <a href="{{ route('user.weight.index') }}" class="btn btn-danger">Belum</a>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal 2 -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg justify-content-center" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container justify-content-center">
+                    <br>
+                    <h5 class="modal-title text-center font-weight-bold text-capitalize">Silahkan berikan penilaian terhadap beberapa coffee shop yang pernah anda kunjungi</h5>
+                    <br>
+                    <div class="row">
+                        @foreach ($alternatives as $alternative)
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <img src="{{ asset('storage/' . $alternative->image) }}" class="card-img-top img-fluid" alt="Gambar Pantai" style="max-height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title small-font">{{ $alternative->alternative_name }}</h5>
+                                        <p class="card-text small-font">{{ $alternative->description }}</p>
+                                        <a href="{{ route('user.alternative-values.edit', ['alternative_id' => $alternative->id]) }}" class="btn btn-success btn-sm small-font">Beri Penilaian</a>
+                                        <a href="{{ $alternative->location }}" class="btn btn-primary btn-sm small-font">Lihat Lokasi</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        $(document).ready(function() {
+        $('#questionModal').modal('show');
+    });
+
+    document.getElementById('PernahBtn').addEventListener('click', function() {
+        $('#questionModal').modal('hide');
+        $('#questionModal').on('hidden.bs.modal', function() {
+            $('#detailModal').modal('show');
+            $(this).off('hidden.bs.modal');
+        });
+    });
+
+    document.getElementById('yaBtn').addEventListener('click', function() {
+        $('#detailModal').modal('hide');
+        $('#detailModal').on('hidden.bs.modal', function() {
+            window.location.href = "#portfolio";
+            $(this).off('hidden.bs.modal');
+        });
+    });
+    });
+  </script>
+
+{{-- @if (request()->query('showModal') == 'true')
+<script>
+    $(document).ready(function() {
+        $('#questionModal').modal('show');
+    });
+
+    document.getElementById('PernahBtn').addEventListener('click', function() {
+        $('#questionModal').modal('hide');
+        $('#questionModal').on('hidden.bs.modal', function() {
+            $('#detailModal').modal('show');
+            $(this).off('hidden.bs.modal');
+        });
+    });
+
+    document.getElementById('yaBtn').addEventListener('click', function() {
+        $('#detailModal').modal('hide');
+        $('#detailModal').on('hidden.bs.modal', function() {
+            window.location.href = "#portfolio";
+            $(this).off('hidden.bs.modal');
+        });
+    });
+</script>
+@endif --}}
 
     <div id="viewport">
         <div id="js-scroll-content">
@@ -259,29 +316,30 @@
 
     @include('users.layouts.script')
 
-    @if(request()->query('showModal') == 'true')
-    <script>
-        $(document).ready(function() {
-            $('#questionModal').modal('show');
-        });
-
-        document.getElementById('belumPernahBtn').addEventListener('click', function() {
-            $('#questionModal').modal('hide');
-            $('#questionModal').on('hidden.bs.modal', function() {
-                $('#detailModal').modal('show');
-                $(this).off('hidden.bs.modal');
+    {{-- @if (request()->query('showModal') == 'true')
+        <script>
+            $(document).ready(function() {
+                $('#questionModal').modal('show');
             });
-        });
 
-        document.getElementById('yaBtn').addEventListener('click', function() {
-            $('#detailModal').modal('hide');
-            $('#detailModal').on('hidden.bs.modal', function() {
-                window.location.href = "#portfolio";
-                $(this).off('hidden.bs.modal');
+            document.getElementById('PernahBtn').addEventListener('click', function() {
+                $('#questionModal').modal('hide');
+                $('#questionModal').on('hidden.bs.modal', function() {
+                    $('#detailModal').modal('show');
+                    $(this).off('hidden.bs.modal');
+                });
             });
-        });
-    </script>
-@endif
+
+            document.getElementById('yaBtn').addEventListener('click', function() {
+                $('#detailModal').modal('hide');
+                $('#detailModal').on('hidden.bs.modal', function() {
+                    window.location.href = "#portfolio";
+                    $(this).off('hidden.bs.modal');
+                });
+            });
+        </script>
+    @endif --}}
+        
 
 
 </body>

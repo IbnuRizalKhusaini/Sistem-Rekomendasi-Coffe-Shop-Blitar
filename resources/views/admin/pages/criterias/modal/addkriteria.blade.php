@@ -9,11 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-uppercase text-xs font-weight-bolder">Panduan Pengisian</p>
-                <p class=" text-secondary text-xs font-weight-bolder opacity-7">
-                    Skala Penilaian Bobot 1 sampai 100
-                    <br> Nilai bobot yang dimasukkan tidak boleh sama dengan kriteria yang lain.
-                </p>
+                
                 <form action="{{ route('admin.criterias.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">

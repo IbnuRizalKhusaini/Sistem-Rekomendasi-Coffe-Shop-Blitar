@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Result;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Ranking;
 
 class ResultController extends Controller
 {
@@ -19,6 +20,7 @@ class ResultController extends Controller
         $criterias = Criteria::all();
         $alternatives = Alternative::all();
         $weightValues = WeightValue::all();
+        $user = Auth::user();
 
         // Ambil semua data dari AlternativeValue dan kelompokkan berdasarkan criteria_id
         $alternativeValues = AlternativeValue::all();

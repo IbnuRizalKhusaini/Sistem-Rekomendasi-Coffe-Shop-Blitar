@@ -45,13 +45,16 @@
                         </a>
                         
                         <!-- Delete Button -->
-                        <form action="" method="POST" style="display:inline-block;">
+                        
+                          <form style="display:inline-block;"
+                          action="{{ route('admin.criterias.destroy', $criteria->id) }}"
+                          method="POST">
                           @csrf
                           @method('DELETE')
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this criteria?');">
-                            Delete
-                          </button>
+                          <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Anda yakin ingin menghapus data ini?')">Delete</button>
                         </form>
+                        
                       </td>
                     </tr>
                     @endforeach
